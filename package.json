@@ -2,6 +2,11 @@
   "name": "app",
   "version": "0.0.1",
   "private": true,
+  "author": "Apolo Oxosse Santoni",
+  "keywords": ["Agendamento","Barbearia", "Serviço","Cabelereiro","Manicurie"],
+  "license": "ISC",
+  "description": "Aplicativo de agendamento de serviços de barbearia.",
+  "readme": "Aplicative de aprendizagem seguindo tutorial do youtube da empresa wb7.com.br",
   "scripts": {
     "android": "react-native run-android",
     "ios": "react-native run-ios",
