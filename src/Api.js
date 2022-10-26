@@ -37,10 +37,75 @@ export default {
         const json = await req.json();
         return json;
     },
-    getBarbers: async (lat=null, lng=null) => {
+    logout: async () => {
         const token = await AsyncStorage.getItem('token');
-        //Video pausado em 3:39:06 configurando latitude e longitude
-        const req = await fetch(`${BASE_API}/barbers?token=${token}&lat=${lat}&lng=${lng}`);
+
+        const req = await fetch(`${BASE_API}/auth/logout`, {
+            method: 'POST',
+            headers:{
+                Accept: 'application/json',
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({token})
+        });
+        const json = await req.json();
+        return json;
+    },
+    getBarbers: async (lat=null, lng=null, address=null) => {
+        const token = await AsyncStorage.getItem('token');
+        
+        const req = await fetch(`${BASE_API}/barbers?token=${token}&lat=${lat}&lng=${lng}&adress=${address}`);
+        const json = await req.json();
+        return json;
+    },
+    getBarber: async (id) => {
+        const token = await AsyncStorage.getItem('token');
+        
+        const req = await fetch(`${BASE_API}/barber/${id}?token=${token}`);
+        const json = await req.json();
+        return json;
+    },
+    setFavorite: async (id) => {
+        const token = await AsyncStorage.getItem('token');
+
+        const req = await fetch(`${BASE_API}/user/favorite`, {
+            method: 'POST',
+            headers:{
+                Accept: 'application/json',
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({token, barber:barberId})
+        });
+        const json = await req.json();
+        return json;
+    },
+    setAppointment: async (
+            userId,
+            service,
+            selectedYear,
+            selectedMonth,
+            selectedDay,
+            selectedHour
+        ) => {
+        
+            const token = await AsyncStorage.getItem('token');
+
+        const req = await fetch(`${BASE_API}/user/appointment`, {
+            method: 'POST',
+            headers:{
+                Accept: 'application/json',
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                    token, 
+                    id: userId,
+                    service,
+                    year: selectedYear,
+                    month: selectedMonth,
+                    day:selectedDay,
+                    hour:selectedHour
+                })
+        });
         const json = await req.json();
         return json;
     }
